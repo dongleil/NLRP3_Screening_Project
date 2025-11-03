@@ -1,0 +1,180 @@
+# 模型配置文件
+
+# 通用配置
+common:
+  random_seed: 42
+  cross_validation_folds: 5
+  early_stopping_patience: 15
+  
+# ==================== 1D模型配置 ====================
+
+# Random Forest
+random_forest:
+  n_estimators: 500
+  max_depth: 20
+  min_samples_split: 10
+  min_samples_leaf: 4
+  max_features: "sqrt"
+  n_jobs: -1
+  random_state: 42
+  class_weight: "balanced"
+
+# XGBoost
+xgboost:
+  n_estimators: 300
+  learning_rate: 0.05
+  max_depth: 6
+  min_child_weight: 3
+  subsample: 0.8
+  colsample_bytree: 0.8
+  gamma: 0.1
+  reg_alpha: 0.1
+  reg_lambda: 1.0
+  scale_pos_weight: 1.0  # 会根据数据自动调整
+  random_state: 42
+  n_jobs: -1
+  eval_metric: "auc"
+
+# SVM
+svm:
+  kernel: "rbf"
+  C: 10.0
+  gamma: "scale"
+  class_weight: "balanced"
+  probability: true
+  random_state: 42
+
+# SMILES Transformer
+smiles_transformer:
+  # Tokenizer配置
+  vocab_size: 100
+  max_length: 120
+  
+  # 模型架构
+  d_model: 128
+  nhead: 4
+  num_encoder_layers: 4
+  dim_feedforward: 512
+  dropout: 0.3
+  
+  # 训练配置
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  num_epochs: 100
+  early_stopping_patience: 15
+  
+  # 优化器
+  optimizer: "adam"
+  scheduler: "cosine"
+  warmup_steps: 500
+
+# ==================== 2D模型配置 ====================
+
+# 分子图通用配置
+molecular_graph:
+  # 节点特征维度
+  node_feature_dim: 20
+  # 边特征维度
+  edge_feature_dim: 5
+  # 是否使用边特征
+  use_edge_features: true
+
+# GCN
+gcn:
+  # 模型架构
+  hidden_channels: 64
+  num_layers: 3
+  dropout: 0.3
+  
+  # 池化方式
+  pooling: "mean"  # 可选: "mean", "max", "add"
+  
+  # 训练配置
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_epochs: 100
+  early_stopping_patience: 15
+  
+  # 优化器
+  optimizer: "adam"
+  scheduler: "reduce_on_plateau"
+
+# GAT
+gat:
+  # 模型架构
+  hidden_channels: 64
+  num_layers: 3
+  num_heads: 4
+  dropout: 0.3
+  
+  # 池化方式
+  pooling: "mean"
+  
+  # 训练配置
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  num_epochs: 100
+  early_stopping_patience: 15
+  
+  # 优化器
+  optimizer: "adam"
+  scheduler: "reduce_on_plateau"
+
+# AttentiveFP
+attentivefp:
+  # 模型架构
+  hidden_channels: 200
+  num_layers: 3
+  num_timesteps: 3
+  dropout: 0.3
+  
+  # 训练配置
+  batch_size: 64
+  learning_rate: 0.0005
+  weight_decay: 0.0001
+  num_epochs: 100
+  early_stopping_patience: 15
+  
+  # 优化器
+  optimizer: "adam"
+  scheduler: "cosine"
+
+# ==================== 3D模型配置 ====================
+
+# SchNet
+schnet:
+  # 模型架构
+  hidden_channels: 128
+  num_filters: 128
+  num_interactions: 6
+  num_gaussians: 50
+  cutoff: 10.0  # Å
+  
+  # 训练配置
+  batch_size: 32
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  num_epochs: 100
+  early_stopping_patience: 20
+  
+  # 优化器
+  optimizer: "adam"
+  scheduler: "reduce_on_plateau"
+
+# ==================== 融合模型配置 ====================
+
+# Stacking
+stacking:
+  meta_model: "xgboost"  # 可选: "logistic", "xgboost", "rf"
+  use_probabilities: true
+  cv_folds: 5
+  
+  # Meta模型超参数（如果是XGBoost）
+  meta_xgboost:
+    n_estimators: 100
+    learning_rate: 0.1
+    max_depth: 3
+    random_state: 42

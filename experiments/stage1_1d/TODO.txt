@@ -1,0 +1,13 @@
+1D实验脚本 - 待第二批/第三批提供
+
+实验列表：
+1. exp1_ecfp_rf.py - ECFP4 + Random Forest (第二批)
+2. exp2_ecfp_xgb.py - ECFP4 + XGBoost (第三批)
+3. exp3_desc_rf.py - RDKit描述符 + Random Forest (第三批)
+4. exp4_smiles_transformer.py - SMILES + Transformer (第三批)
+
+每个实验将包含：
+- 完整的训练流程
+- 模型评估
+- 结果可视化
+- 模型保存

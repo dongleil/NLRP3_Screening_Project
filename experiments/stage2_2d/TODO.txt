@@ -1,0 +1,13 @@
+2D实验脚本 - 待第四批提供
+
+实验列表：
+1. exp5_graph_gcn.py - 分子图 + GCN
+2. exp6_graph_gat.py - 分子图 + GAT  
+3. exp7_graph_attentivefp.py - 分子图 + AttentiveFP
+4. exp8_topo_xgb.py - 拓扑指纹 + XGBoost
+
+每个实验将包含：
+- 图神经网络实现
+- 完整的训练流程
+- 注意力权重可视化（GAT/AttentiveFP）
+- 模型评估和保存

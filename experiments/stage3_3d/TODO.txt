@@ -1,0 +1,11 @@
+3D实验脚本 - 待第五批提供
+
+实验列表：
+1. exp9_pharm3d_rf.py - 3D药效团 + Random Forest
+2. exp10_pointcloud_schnet.py - 点云 + SchNet
+
+每个实验将包含：
+- 3D构象处理
+- 3D特征提取
+- 模型训练和评估
+- 3D可视化

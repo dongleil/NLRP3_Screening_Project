@@ -1,0 +1,68 @@
+# 数据配置文件
+
+# ChEMBL数据采集配置
+chembl:
+  target_name: "NLRP3"
+  target_chembl_id: null  # 如果知道具体ID可以填入，如 "CHEMBL4523969"
+  activity_types: ["IC50", "Ki", "EC50"]
+  standard_units: ["nM", "uM"]
+  min_confidence_score: 7
+  
+# 数据过滤配置
+filtering:
+  # 活性阈值 (单位: μM)
+  active_threshold: 10.0      # IC50 < 10 μM 为活性
+  inactive_threshold: 50.0    # IC50 > 50 μM 为非活性
+  
+  # 分子性质过滤
+  molecular_weight_range: [150, 800]
+  heavy_atom_count_range: [10, 60]
+  
+  # 排除的分子类型
+  exclude_inorganic: true
+  exclude_mixtures: true
+  exclude_metals: true
+
+# 数据平衡配置
+balancing:
+  method: "undersample"  # 可选: "undersample", "oversample", "smote", "none"
+  target_ratio: 1.5      # inactive/active 的目标比例 (1.0 表示 1:1)
+  
+# 数据集划分配置
+splitting:
+  method: "scaffold"  # 可选: "scaffold", "random", "temporal"
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  random_seed: 42
+  
+# 数据增强配置（可选）
+augmentation:
+  enabled: false
+  smiles_enumeration: false  # SMILES随机化
+  num_enumerations: 5
+
+# 3D构象生成配置
+conformer_generation:
+  method: "ETKDG"
+  num_conformers: 1  # 每个分子生成的构象数
+  optimize: true
+  force_field: "MMFF94"
+  max_iterations: 200
+
+# 数据路径配置
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  features_dir: "data/features"
+  conformers_dir: "data/features/conformers"
+  
+# 数据文件名
+filenames:
+  raw_data: "chembl_nlrp3_raw.csv"
+  processed_data: "molecules.csv"
+  train_data: "train.csv"
+  val_data: "val.csv"
+  test_data: "test.csv"
+  data_statistics: "data_statistics.json"
+  split_info: "split_info.json"

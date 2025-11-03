@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 数据文件（可选，根据需要调整）
+data/raw/*.csv
+data/processed/*.csv
+data/features/**/*.pkl
+data/features/**/*.pt
+*.sdf
+*.mol2
+
+# 模型文件（较大）
+*.pkl
+*.pt
+*.h5
+*.pth
+
+# 日志
+logs/*.log
+*.log
+
+# 结果文件
+results/**/*.png
+results/**/*.pdf
+results/**/*.csv
+
+# 临时文件
+*.tmp
+.cache/

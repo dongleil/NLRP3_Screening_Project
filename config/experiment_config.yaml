@@ -1,0 +1,110 @@
+# 实验配置文件
+
+# 实验通用配置
+experiment:
+  project_name: "NLRP3_Screening"
+  experiment_tracking: false  # 是否使用MLflow或W&B
+  save_models: true
+  save_predictions: true
+  
+# 特征配置
+features:
+  # 1D特征
+  ecfp:
+    radius: 2
+    n_bits: 2048
+    use_features: false
+    use_chirality: true
+    
+  maccs:
+    enabled: false  # 可选，默认不用
+    
+  rdkit_descriptors:
+    use_all: true
+    remove_low_variance: true
+    variance_threshold: 0.01
+    feature_selection: true
+    n_features_to_select: 100
+    
+  topological_torsion:
+    n_bits: 2048
+    
+  # 2D特征（分子图）
+  molecular_graph:
+    atom_features:
+      - atom_type
+      - degree
+      - formal_charge
+      - hybridization
+      - is_aromatic
+      - num_hs
+    
+    bond_features:
+      - bond_type
+      - is_conjugated
+      - is_in_ring
+      
+  # 3D特征
+  pharmacophore_3d:
+    feature_types:
+      - hydrophobic
+      - aromatic
+      - hbond_acceptor
+      - hbond_donor
+      - positive_ionizable
+      - negative_ionizable
+    bin_step: 1.0  # Å
+    
+# 评估指标配置
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - roc_auc
+    - pr_auc
+    - balanced_accuracy
+    
+  enrichment_factors:
+    top_percentages: [0.01, 0.05, 0.10]  # 1%, 5%, 10%
+    
+  bedroc:
+    alpha: 20.0
+    
+  statistical_tests:
+    - delong_test
+    - mcnemar_test
+    
+  confidence_interval: 0.95
+  
+# 可视化配置
+visualization:
+  plot_confusion_matrix: true
+  plot_roc_curve: true
+  plot_pr_curve: true
+  plot_feature_importance: true
+  plot_learning_curve: true
+  plot_attention_weights: true  # 仅GNN模型
+  
+  figure_format: "png"
+  figure_dpi: 300
+  
+# 结果保存配置
+results:
+  save_format: "json"  # 可选: "json", "csv"
+  save_predictions: true
+  save_probabilities: true
+  save_trained_models: true
+  
+# 计算资源配置
+computing:
+  device: "auto"  # 可选: "cpu", "cuda", "auto"
+  num_workers: 4
+  pin_memory: true
+  
+# 日志配置
+logging:
+  level: "INFO"  # 可选: "DEBUG", "INFO", "WARNING", "ERROR"
+  save_to_file: true
+  log_dir: "logs"
