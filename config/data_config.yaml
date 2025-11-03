@@ -3,17 +3,23 @@
 # ChEMBL数据采集配置
 chembl:
   target_name: "NLRP3"
-  target_chembl_id: null  # 如果知道具体ID可以填入，如 "CHEMBL4523969"
+  target_chembl_id: CHEMBL1741208  # 如果知道具体ID可以填入，如 "CHEMBL4523969"
   activity_types: ["IC50", "Ki", "EC50"]
   standard_units: ["nM", "uM"]
-  min_confidence_score: 7
+  
   
 # 数据过滤配置
 filtering:
   # 活性阈值 (单位: μM)
   active_threshold: 10.0      # IC50 < 10 μM 为活性
   inactive_threshold: 50.0    # IC50 > 50 μM 为非活性
-  
+  # 各活性类型的具体阈值
+  activity_types:
+    IC50: 10.0    # 半数抑制浓度
+    EC50: 10.0    # 半数有效浓度
+    Ki: 5.0       # 抑制常数（通常要求更严格）
+    Kd: 5.0       # 解离常数
+    AC50: 10.0    # 半数活性浓度
   # 分子性质过滤
   molecular_weight_range: [150, 800]
   heavy_atom_count_range: [10, 60]
@@ -26,7 +32,7 @@ filtering:
 # 数据平衡配置
 balancing:
   method: "undersample"  # 可选: "undersample", "oversample", "smote", "none"
-  target_ratio: 1.5      # inactive/active 的目标比例 (1.0 表示 1:1)
+  target_ratio: 3      # inactive/active 的目标比例 (1.0 表示 1:1)
   
 # 数据集划分配置
 splitting:
